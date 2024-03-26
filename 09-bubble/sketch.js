@@ -26,6 +26,26 @@ function draw() {
   
 }
 
+function mousePressed(){
+  //did you click on the bubble?
+  for (let i = theBubbles.length-1; i >= 0; i--){
+    if (clickedInBubble(mouseX, mouseY, theBubbles[i])) {
+      //kill it
+      theBubbles.splice(i, 1);
+    }
+  }
+}
+
+function clickedInBubble(x, y, someBubble){
+  let distanceAway = dist(x, y, someBubble.x, someBubble.y);
+  if (distanceAway <= someBubble.size/2){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
 function moveBubblesWithNoise(){
   for (let bubble of theBubbles){
     //figure out where to be
