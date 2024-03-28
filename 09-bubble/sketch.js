@@ -57,7 +57,7 @@ function moveBubblesWithNoise(){
 
     //increment timeX and timeY
     bubble.timeX += bubble.deltaTime;
-    bubble.timeY += bubble.deltaTime;
+    bubble.timey += bubble.deltaTime;
   }
 }
 

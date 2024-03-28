@@ -7,4 +7,5 @@
 [Bubbles](09-bubble)
 
 ## Projects
-[Interactive_Scene](P1-interactive_scene)
+[Interactive Scene](P1-interactive_scene)
+[Array Project](P2-array_project)
