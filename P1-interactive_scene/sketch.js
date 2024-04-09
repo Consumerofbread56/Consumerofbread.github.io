@@ -124,7 +124,7 @@ function sling() {
 //Makes sure the next function (drop) doesn't bug out the game by making sure the ball is clicked by the mouse before the player lets go. Essentially does the job of the mouseReleased method but with easier to understand syntax.
     dropStateOne = true;
     //checks if ball ever goes over the target while in sling().
-    target()
+    target();
   //If it does, the game over screen happens.
       
   //See keyPressed() (not in the if statement, just while the player is holding the ball)

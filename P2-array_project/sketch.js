@@ -20,7 +20,7 @@ function drawCircle(){
 
 function spawnCircles(){
   someCircle={
-
+    
     
   }
 }
