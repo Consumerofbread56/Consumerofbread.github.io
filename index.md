@@ -5,6 +5,7 @@
 [Generative Art](06-art)
 [Terrain Generation](07-terrain)
 [Bubbles](09-bubble)
+[Grid] (10-grid)
 
 ## Projects
 [Interactive Scene](P1-interactive_scene)
