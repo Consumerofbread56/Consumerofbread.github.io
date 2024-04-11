@@ -18,6 +18,7 @@
 let grid;
 let cellSize;
 const GRID_SIZE = 10;
+let clickState = true;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -42,6 +43,7 @@ function displayGrid() {
       square(x*cellSize,y*cellSize, cellSize);
     }
   }
+  clickState = true;
 }
 
 function generateRandomGrid(rows, cols){
@@ -59,3 +61,27 @@ function generateRandomGrid(rows, cols){
   }
   return emptyArray;
 }
+
+function mousePressed(){
+    for (let y = 0; y < grid.length; y++){
+      for(let x = 0; x < grid[y].length; x++){
+        if (
+          mouseX > x*cellSize &&
+          mouseX < x*cellSize + cellSize &&
+          mouseY > y*cellSize &&
+          mouseY < y*cellSize + cellSize
+          ) {
+            if (grid[y][x] === 1){
+              grid[y].pop(x);
+              grid[y].push(x, 0)
+            }
+            else{
+              grid[y].pop(x);
+              grid[y].push(x, 1)
+            }
+            square(x*cellSize,y*cellSize, cellSize);
+          }
+      }
+    }
+  clickState = false;
+ }
