@@ -72,16 +72,22 @@ function mousePressed(){
           mouseY < y*cellSize + cellSize
           ) {
             if (grid[y][x] === 1){
-              grid[y].pop(x);
-              grid[y].push(x, 0)
+              grid[y].splice(x, 1, 0);
+              
+              
             }
             else{
-              grid[y].pop(x);
-              grid[y].push(x, 1)
+              grid[y].splice(x, 1, 1);
             }
-            square(x*cellSize,y*cellSize, cellSize);
+            
           }
       }
     }
   clickState = false;
+ }
+
+ function keyTyped(){
+  if (key === "z"){
+    generateRandomGrid(GRID_SIZE, GRID_SIZE);
+  }
  }
