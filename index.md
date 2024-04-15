@@ -7,6 +7,8 @@
 [Bubbles](09-bubble)
 [Grid] (10-grid)
 
+[Player] (12-player)
+
 ## Projects
 [Interactive Scene](P1-interactive_scene)
 [Array Project](P2-array_project)
