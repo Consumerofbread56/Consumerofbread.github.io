@@ -17,7 +17,15 @@
 // ]
 let grid;
 let cellSize;
-const GRID_SIZE = 10;
+let gosper;
+
+const GRID_SIZE = 50;
+
+function preload() {
+  gosper = {
+    gun: loadJSON("gosper.json"),
+  }
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -66,7 +74,7 @@ function generateEmptyGrid(rows, cols){
     emptyArray.push([])
     for (let x = 0; x < cols; x++){
       
-      emptyArray[y].push(1);
+      emptyArray[y].push(0);
       
     }
   }
@@ -104,21 +112,28 @@ function mousePressed(){
   if (key === " "){
     grid = updateGrid();
   }
+  if (key === "e"){
+    grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
+  }
+  if (key === "g"){
+    grid = gosper.gun;
+  }
  }
 
  function updateGrid(){
   let nextTurn = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
-  for (let y=0; y < GRID_SIZE; y++){
-    for (let x=0; x < GRID_SIZE; x++){
+  for (let x=0; x < GRID_SIZE; x++){
+    for (let y=0; y < GRID_SIZE; y++){
       let neighbors = 0;
 
       //look bro
       for(let i = -1; i<= 1; i++){
         for(let j = -1; j<= 1; j++){
           //avoid edge of grid
-          if(x+j >= 0 && x+j < GRID_SIZE && y+i >=0 && y+i < GRID_SIZE){
-            neighbors += grid[y+i][x+j];
-           
+          let neighborY = y+j;
+          let neighborX = x+i;
+          if (neighborX >= 0 && neighborX < GRID_SIZE && neighborY >= 0 && neighborY < GRID_SIZE) {
+            neighbors += grid[neighborY][neighborX];
           }
           
         }
@@ -129,6 +144,7 @@ function mousePressed(){
 
       // apply rules
       if (grid[y][x] === 1) {
+       
         if (neighbors === 2 || neighbors === 3){
           nextTurn[y][x] = 1;
         }
@@ -137,7 +153,7 @@ function mousePressed(){
         }
         
       }
-      if (grid[x][y] === 0){
+      if (grid[y][x] === 0){
         if(neighbors === 3){
           nextTurn[y][x] = 1;
         }

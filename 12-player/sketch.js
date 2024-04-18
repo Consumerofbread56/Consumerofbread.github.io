@@ -8,7 +8,7 @@
 
 let grid;
 let cellSize;
-const GRID_SIZE = 10;
+const GRID_SIZE = 30;
 const OPEN_TILE = 0;
 
 function setup() {
@@ -52,6 +52,7 @@ function keyPressed() {
   if (key === "e") {
     grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
   }
+  if ()
 }
 
 function mousePressed() {
@@ -115,7 +116,7 @@ function generateEmptyGrid(cols, rows) {
   for (let y = 0; y < rows; y++) {
     emptyArray.push([]);
     for (let x = 0; x < cols; x++) {
-      emptyArray[y].push(0);
+      emptyArray[y].push(1);
     }
   }
   return emptyArray;
