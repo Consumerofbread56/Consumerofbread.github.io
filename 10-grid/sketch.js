@@ -43,7 +43,6 @@ function displayGrid() {
       square(x*cellSize,y*cellSize, cellSize);
     }
   }
-  clickState = true;
 }
 
 function generateRandomGrid(rows, cols){
@@ -83,7 +82,6 @@ function mousePressed(){
           }
       }
     }
-  clickState = false;
  }
 
  function keyTyped(){
