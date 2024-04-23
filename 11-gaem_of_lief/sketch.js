@@ -17,7 +17,7 @@
 // ]
 let grid;
 let cellSize;
-let gosper;
+let gosper = [];
 
 const GRID_SIZE = 50;
 
