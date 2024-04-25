@@ -12,6 +12,7 @@ let dummy = true;
 
 let zLevel = 32;
 let oldZ = 32;
+let cielingHoleLocation;
 const GRID_SIZE = 30;
 const PLAYER = 9;
 const OPEN_TILE = 0;
@@ -70,11 +71,9 @@ function generateRandomGrid(rows, cols){
       if (random(100)< 50){
         emptyArray[y].push(0);
       }
-      else if (floor(random(50)) === 1 && zLevel < 32){
-        emptyArray[y].push(3);
-      }
       else if (floor(random(50)) === 1 && zLevel > 0){
         emptyArray[y].push(2);
+        emptyArray[y][emptyArray[y].length];
       }
       
       
