@@ -36,7 +36,7 @@ function setup() {
 function draw() {
   background(220);
   displayGrid();
-  saveLayer(zLevel);
+  changeLayer(zLevel);
 }
 
 function displayGrid() {
@@ -49,7 +49,7 @@ function displayGrid() {
         fill("red");
       }
       else if (grid[y][x] === 2){
-        fill("lightBlue");
+        fill("aqua");
       }
       else if (grid[y][x] === 3){
         fill("blue");
@@ -70,15 +70,19 @@ function generateRandomGrid(rows, cols){
       if (random(100)< 50){
         emptyArray[y].push(0);
       }
-      else if (random(10) = 1 && zLevel < 32){
+      else if (floor(random(50)) === 1 && zLevel < 32){
         emptyArray[y].push(3);
       }
-      else if (random(10) = 1 && zLevel > 0){
+      else if (floor(random(50)) === 1 && zLevel > 0){
         emptyArray[y].push(2);
       }
+      
+      
       else {
         emptyArray[y].push(1);
       }
+      
+      
     }
 
   }
@@ -98,11 +102,15 @@ function mousePressed(){
           mouseY < y*cellSize + cellSize
           ) {
             if (grid[y][x] === 1){
-              grid[y].splice(x, 1, 0);
-              
-              
+              grid[y].splice(x, 1, 0); 
             }
             else if (grid[y][x] === 9){
+              dummy = -dummy;
+            }
+            else if (grid[y][x] === 2){
+              dummy = -dummy;
+            }
+            else if (grid[y][x] === 3){
               dummy = -dummy;
             }
             else{
@@ -159,8 +167,6 @@ function movePlayer(x, y) {
         //move the player to the new spot
         grid[player.y][player.x] = PLAYER;
 
-      console.log(player.x);
-      console.log(player.y);
     }
     if (x < GRID_SIZE && y < GRID_SIZE &&
       x >= 0 && y >= 0 && grid[y][x] === FLOOR_HOLE_TILE) {
@@ -174,25 +180,51 @@ function movePlayer(x, y) {
 
       //reset old location to be an empty tile
       grid[oldY][oldX] = OPEN_TILE;
+      
+      grid[player.y][player.x] = FLOOR_HOLE_TILE;
+      
 
-      //move the player to the new spot
-      grid[player.y][player.x] = PLAYER;
-
-    console.log(player.x);
-    console.log(player.y);
-    zLevel = zLevel--;
+    
+    zLevel = zLevel - 1;
+    console.log(zLevel);
  }
+ if (x < GRID_SIZE && y < GRID_SIZE &&
+  x >= 0 && y >= 0 && grid[y][x] === CIELING_HOLE_TILE) {
+  //previous player location
+  let oldX = player.x;
+  let oldY = player.y;
+
+  //move the player
+  player.x = x;
+  player.y = y;
+
+  //reset old location to be an empty tile
+  grid[oldY][oldX] = OPEN_TILE;
+
+  grid[player.y][player.x] = CIELING_HOLE_TILE;
+  
+
+
+zLevel = zLevel + 1;
+console.log(zLevel);
+}
 }
 
- function saveLayer(level) {
+ function changeLayer(level) {
   if (level < oldZ){
     oldGrid[oldZ] = grid;
     oldZ--;
-    if (oldGrid[level] != null){
+    if (oldGrid[level] === undefined){
       grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
     }
     else {
-      grid = oldGrid[level]
+      grid = oldGrid[level];
     }
   }
+  else if (level > oldZ){
+    oldGrid[oldZ] = grid;
+    oldZ++;
+    grid = oldGrid[level];
+  }
+  
  }
