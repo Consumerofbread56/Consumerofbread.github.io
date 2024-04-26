@@ -12,7 +12,10 @@ let dummy = true;
 
 let zLevel = 32;
 let oldZ = 32;
-let cielingHoleLocation;
+let oldCielingHoleLocationX = [];
+let oldCielingHoleLocationY = [];
+let newCielingHoleLocationX = [];
+let newCielingHoleLocationY = [];
 const GRID_SIZE = 30;
 const PLAYER = 9;
 const OPEN_TILE = 0;
@@ -68,18 +71,25 @@ function generateRandomGrid(rows, cols){
   for (let y = 0; y < rows; y++){
     emptyArray.push([])
     for (let x = 0; x < cols; x++){
-      if (random(100)< 50){
-        emptyArray[y].push(0);
+      if (cielingHoleLocationX === x && cielingHoleLocationY === y){
+        emptyArray[y].push(3);
       }
-      else if (floor(random(50)) === 1 && zLevel > 0){
-        emptyArray[y].push(2);
-        emptyArray[y][emptyArray[y].length];
+      else{
+        if (random(100)< 50){
+          emptyArray[y].push(0);
+        }
+        else if (floor(random(50)) === 1 && zLevel > 0){
+          emptyArray[y].push(2);
+          newCielingHoleLocationX.push(emptyArray[y].length-1);
+          newCielingHoleLocationY.push(emptyArray.length-1);
+        }
+        
+        
+        else {
+          emptyArray[y].push(1);
+        }
       }
-      
-      
-      else {
-        emptyArray[y].push(1);
-      }
+
       
       
     }
