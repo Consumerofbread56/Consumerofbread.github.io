@@ -71,10 +71,12 @@ function generateRandomGrid(rows, cols){
   for (let y = 0; y < rows; y++){
     emptyArray.push([])
     for (let x = 0; x < cols; x++){
-      if (cielingHoleLocationX === x && cielingHoleLocationY === y){
-        emptyArray[y].push(3);
+      for(let i = 0; i< cols; i++){
+        if (oldCielingHoleLocationX[i] === x && oldCielingHoleLocationY[i] === y){
+          emptyArray[y].push(3);
+        }
       }
-      else{
+
         if (random(100)< 50){
           emptyArray[y].push(0);
         }
@@ -88,16 +90,22 @@ function generateRandomGrid(rows, cols){
         else {
           emptyArray[y].push(1);
         }
-      }
+      
 
       
       
     }
 
   }
+ if (grid === undefined){
   emptyArray[0][0] = 9;
-  player.x = 0;
-  player.y = 0;
+ }
+  
+  oldCielingHoleLocationX = newCielingHoleLocationX;
+  oldCielingHoleLocationY = newCielingHoleLocationY;
+  newCielingHoleLocationX = [];
+  newCielingHoleLocationY = [];
+
   return emptyArray;
 }
 
@@ -171,7 +179,16 @@ function movePlayer(x, y) {
         player.y = y;
   
         //reset old location to be an empty tile
-        grid[oldY][oldX] = OPEN_TILE;
+        if (grid[oldY][oldX] === CIELING_HOLE_TILE){
+          grid[oldY][oldX] = CIELING_HOLE_TILE;
+        }
+        else if (grid[oldY][oldX] === FLOOR_HOLE_TILE){
+          grid[oldY][oldX] = FLOOR_HOLE_TILE;
+        }
+        else {
+          grid[oldY][oldX] = OPEN_TILE;
+        }
+        
   
         //move the player to the new spot
         grid[player.y][player.x] = PLAYER;
