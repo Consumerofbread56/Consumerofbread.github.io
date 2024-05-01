@@ -6,8 +6,8 @@
 [Terrain Generation](07-terrain)
 [Bubbles](09-bubble)
 [Grid] (10-grid)
-
 [Player] (12-player)
+[Walker] (14-walker)
 
 ## Projects
 [Interactive Scene](P1-interactive_scene)
