@@ -8,6 +8,7 @@
 [Grid] (10-grid)
 [Player] (12-player)
 [Walker] (14-walker)
+[Particles] (16-particles)
 
 ## Projects
 [Interactive Scene](P1-interactive_scene)

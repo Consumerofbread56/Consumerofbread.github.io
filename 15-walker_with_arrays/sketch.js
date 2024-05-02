@@ -9,9 +9,9 @@ class Walker {
   constructor(x, y, theColour) {
     this.x = x;
     this.y = y;
-    this.stepSize = 5;
-    this.radius = theColour;
-    this.color = "red";
+    this.stepSize = 10;
+    this.radius = 5;
+    this.color = theColour;
   }
 
   display(){
@@ -21,34 +21,37 @@ class Walker {
   move(){
     let choice = random(100);
     if(choice<25){
-      this.y-this.stepSize;
+      this.y -= this.stepSize;
     }
     else if (choice<50){
-      this.y + this.stepSize;
+      this.y += this.stepSize;
     }
     else if (choice < 75){
-      this.x + this.stepSize;
+      this.x += this.stepSize;
     }
-    else if (choice < 100){
-      this.x - this.stepSize;
+    else{
+      this.x -= this.stepSize;
     }
   }
 }
 
-let maram;
-let griffin;
+let theWalkers = []
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  maram = new Walker(width/2, height/2, "green");
-  griffin = new Walker(200, 400, "red");
+  
   noStroke();
 }
 
 function draw() {
-  
-  maram.move();
-  griffin.move();
-  maram.display();
-  griffin.display();
+  for (let someWalker of theWalkers){
+    someWalker.move();
+    someWalker.display()
+  }
+}
+
+function mousePressed(){
+  let theColor = color(random(255), random(255), random(255));
+  let myWalker = new Walker(mouseX, mouseY, theColor);
+  theWalkers.push(myWalker);
 }
