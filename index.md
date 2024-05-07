@@ -9,6 +9,7 @@
 [Player] (12-player)
 [Walker] (14-walker)
 [Particles] (16-particles)
+[Connected Nodes] (17-nodes)
 
 ## Projects
 [Interactive Scene](P1-interactive_scene)

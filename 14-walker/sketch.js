@@ -10,8 +10,8 @@ class Walker {
     this.x = x;
     this.y = y;
     this.stepSize = 5;
-    this.radius = theColour;
-    this.color = "red";
+    this.radius = 5;
+    this.color = theColour;
   }
 
   display(){
