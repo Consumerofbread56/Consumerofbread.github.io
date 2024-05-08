@@ -75,7 +75,7 @@ const GRID_SIZE = 30;
 //Rest are block IDs
 const PLAYER = 9;
 const OPEN_TILE = 0;
-const IMPASSIBLE = 1;
+const STONE = 1;
 const FLOOR_HOLE_TILE = 2;
 const CIELING_HOLE_TILE = 3;
 const PLANK = 4;
@@ -280,7 +280,7 @@ function mousePressed(){
             else if (grid[y][x] === 0){
               if (blockSelected != undefined){
                 if(blockSelected === 1 && stoneCollected>0){
-                  grid[y].splice(x, 1, IMPASSIBLE);
+                  grid[y].splice(x, 1, STONE);
                   stoneCollected--;
                 } //If the tile is empty and the block selected in the inventory is stone and you have it, replace with stone, -1 stone.
                 if(blockSelected === PLANK && logsCollected>0){
@@ -290,20 +290,27 @@ function mousePressed(){
               }
               else {
                 dummy = -dummy;
-                //If no block is selected, do nothing.
-              }
+              } //If no block is selected, do nothing.
+              
             }
           }
       }
     }
+    //If the mouse is in the x-spot where the inventory is...
     if (mouseX>width-width/4 && mouseX<width-width/4+100){
+      //checks the y position.
       for (let y = 0; y<height; y++){
+        //And if the mouseY is equal to the place iterated through with the loop...
         if(mouseY === y){
+          //then choose the inventory slot you want to choose from. Remember that the inventory slot number does not correspond to
+          //the block ID. Might rewrite it to fit for future convenience.
           let slot = Math.floor(y/10);
           if (slot === 0){
-            blockSelected = IMPASSIBLE;
+            //First slot is stone.
+            blockSelected = STONE;
           }
           else if (slot === 1){
+            //Second slot is logs/planks.
             blockSelected = PLANK;
           }
         }
@@ -314,32 +321,25 @@ function mousePressed(){
 
  function keyPressed(){
 
-  if (key === "z"){
+  if (key === "z"){    //random grid for fun
     grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
   }
-  if (key === " "){
-    grid = updateGrid();
-  }
+  
   if (key === "w") {   //up
     movePlayer(player.x + 0, player.y - 1); //0 on x axis, -1 on y axis
   }
-
 
   if (key === "s") {   //down
     movePlayer(player.x + 0, player.y + 1); //0 on x axis, 1 on y axis
   }
 
-
   if (key === "d") {   //right
     movePlayer(player.x + 1, player.y + 0); //1 on x axis, 0 on y axis
   }
 
-
   if (key === "a") {   //left
     movePlayer(player.x - 1, player.y + 0); //-1 on x axis, 0 on y axis
   }
-
-
 }
 
 
@@ -389,11 +389,8 @@ function movePlayer(x, y) {
      
       grid[player.y][player.x] = FLOOR_HOLE_TILE;
      
-
-
-   
-    zLevel = zLevel - 1;
-    console.log(zLevel);
+      //Go down on 3D grid
+      zLevel = zLevel - 1;
  }
  if (x < GRID_SIZE && y < GRID_SIZE &&
   x >= 0 && y >= 0 && grid[y][x] === CIELING_HOLE_TILE) {
@@ -412,29 +409,31 @@ function movePlayer(x, y) {
 
 
   grid[player.y][player.x] = CIELING_HOLE_TILE;
- 
 
-
-
-
-zLevel = zLevel + 1;
-console.log(zLevel);
+  //Go up on 3D grid.
+  zLevel = zLevel + 1;
 }
 }
 
 
  function changeLayer(level) {
+  //Checks if the player goes down a level.
   if (level < oldZ){
+    //Saves the old grid to the 3D array, goes to next grid.
     oldGrid[oldZ] = grid;
     oldZ--;
+    //When loading the next grid, checks the array to see if the grid has ever been generated before.
     if (oldGrid[level] === undefined){
+      //If not, generates a grid for the player to go to.
       grid = generateRandomGrid(GRID_SIZE, GRID_SIZE);
     }
     else {
+      //If so, uses the grid associated with the current z-position of the player.
       grid = oldGrid[level];
     }
   }
   else if (level > oldZ){
+    //If going up, then load the previous grid.
     oldGrid[oldZ] = grid;
     oldZ++;
     grid = oldGrid[level];
@@ -442,7 +441,7 @@ console.log(zLevel);
  
  }
 
-
+ //Displays the inventory. First is stone, second is planks.
  function displayInventory() {
   stroke(30)
   fill("white");
