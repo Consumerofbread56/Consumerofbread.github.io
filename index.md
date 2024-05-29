@@ -11,6 +11,7 @@
 [Particles] (16-particles)
 [Connected Nodes] (17-nodes)
 [Recursive Circles](19-circles)
+[Sierpinski Triangle](20-triangle)
 
 ## Projects
 [Interactive Scene](P1-interactive_scene)
